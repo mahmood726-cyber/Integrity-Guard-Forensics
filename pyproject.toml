@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evidence-integrity-guard"
+version = "0.1.0"
+description = "Automated QA and forensic screening for clinical trial reporting."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[project.scripts]
+integrity-guard = "main:main"
+integrity-openclaw = "openclaw_pipeline:run_pipeline"
+integrity-html-report = "html_reporter:main"
+integrity-review = "review_tool:main"
+integrity-ai-review = "ai_reviewer:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+py-modules = [
+  "ai_reviewer",
+  "author_auditor",
+  "baseline_balance_engine",
+  "clinical_synonyms",
+  "ct_history_fetcher",
+  "discrepancy_engine",
+  "fraud_lead_generator",
+  "html_reporter",
+  "inquiry_generator",
+  "linguistic_forensics",
+  "main",
+  "mass_scanner",
+  "openclaw_pipeline",
+  "p_curve_analyzer",
+  "plausibility_engine",
+  "review_tool",
+  "rob_mapper",
+  "scientific_integrity_forensics",
+  "stats_utils",
+  "truthcert_builder",
+  "utils",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

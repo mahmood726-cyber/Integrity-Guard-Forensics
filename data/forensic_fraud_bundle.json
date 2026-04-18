@@ -1,0 +1,19 @@
+{
+  "nctId": "NCT00000102",
+  "citation": "Suspicious Research Paper 2026.",
+  "extractedOutcomes": [
+    {"measure": "Serum Calcium Levels"}
+  ],
+  "forensic_data": [
+    {
+      "measure": "Mean Heart Rate (Baseline)",
+      "mean": 72.41,
+      "n": 10,
+      "precision": 2
+    }
+  ],
+  "numeric_dataset": [
+    1.23, 1.45, 1.67, 1.89, 5.12, 5.34, 5.56, 5.78, 5.91, 5.23,
+    6.12, 6.34, 6.56, 6.78, 6.91, 6.23, 7.12, 7.34, 7.56, 7.78
+  ]
+}

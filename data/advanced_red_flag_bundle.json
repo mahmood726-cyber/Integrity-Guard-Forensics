@@ -1,0 +1,17 @@
+{
+  "nctId": "NCT00000102",
+  "citation": "Revolutionary Breakthrough in Calcium Research 2026.",
+  "abstract_text": "This groundbreaking study presents an extraordinary and unique revolutionary treatment that has an unprecedented and miraculous effect on patient outcomes, robustly transforming clinical practice dramatically.",
+  "extractedOutcomes": [
+    {"measure": "Serum Calcium Levels"}
+  ],
+  "reported_p_values": [0.048, 0.049, 0.047, 0.045, 0.049],
+  "forensic_data": [
+    {
+      "measure": "Mean Heart Rate (Baseline)",
+      "mean": 72.41,
+      "n": 10,
+      "precision": 2
+    }
+  ]
+}

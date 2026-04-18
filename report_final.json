@@ -1,0 +1,46 @@
+{
+  "nctId": "NCT04458623",
+  "citation": "Author et al. 2024. Journal of Medical Meta-analysis.",
+  "timestamp": "2026-04-01",
+  "protocol_summary": {
+    "primaryOutcomes": [
+      {
+        "measure": "to assess the accuracy of air test in detecting postoperative atelectasis compared with reference ultrasonographic lung detection of atelectasis in a special grou of patients (aged) and a special form of surgery (orthopedics).",
+        "description": "using air test",
+        "timeFrame": "30 minutes"
+      }
+    ]
+  },
+  "publication_summary": {
+    "reportedOutcomes": [
+      {
+        "measure": "Symptom score improvement"
+      },
+      {
+        "measure": "Adverse events"
+      }
+    ]
+  },
+  "discrepancy_results": {
+    "discrepancies": [
+      {
+        "type": "OUTCOME_ADDED",
+        "publication_outcome": "Symptom score improvement",
+        "confidence": 0.9601593625498008,
+        "reason": "This outcome appears in the publication but was not found in the original protocol."
+      },
+      {
+        "type": "OUTCOME_ADDED",
+        "publication_outcome": "Adverse events",
+        "confidence": 0.9833333333333333,
+        "reason": "This outcome appears in the publication but was not found in the original protocol."
+      },
+      {
+        "type": "OUTCOME_MISSING",
+        "protocol_outcome": "to assess the accuracy of air test in detecting postoperative atelectasis compared with reference ultrasonographic lung detection of atelectasis in a special grou of patients (aged) and a special form of surgery (orthopedics).",
+        "reason": "This outcome was registered in the protocol but is not reported in the publication."
+      }
+    ],
+    "status": "WARNING"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "nctId": "NCT00000102",
+  "citation": "A Too Good To Be True Trial 2026.",
+  "extractedOutcomes": [
+    {"measure": "Serum Calcium Levels"}
+  ],
+  "baseline_data": [
+    {"m1": 45.1, "sd1": 5.0, "n1": 100, "m2": 45.2, "sd2": 5.0, "n2": 100},
+    {"m1": 70.1, "sd1": 10.0, "n1": 100, "m2": 70.2, "sd2": 10.0, "n2": 100},
+    {"m1": 24.5, "sd1": 3.0, "n1": 100, "m2": 24.6, "sd2": 3.0, "n2": 100}
+  ],
+  "outcome_data": {
+    "m1": 5.5, "sd1": 1.0, "n1": 100,
+    "m2": 5.2, "sd2": 1.0, "n2": 100,
+    "p": 0.0001
+  }
+}

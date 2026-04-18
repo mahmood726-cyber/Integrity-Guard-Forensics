@@ -1,0 +1,24 @@
+{
+  "nctId": "NCT00000102",
+  "citation": "A Too Good To Be True Trial 2026.",
+  "timestamp": "2026-04-01",
+  "discrepancy_results": {
+    "discrepancies": [
+      {
+        "type": "OUTCOME_ADDED",
+        "publication_outcome": "Serum Calcium Levels",
+        "confidence": 1.0,
+        "reason": "This outcome appears in the publication but was not found in the original protocol. | CLINICAL IMPACT: LOW SEVERITY: A new outcome was reported. Ensure it was properly pre-specified in an internal statistical plan.",
+        "clinical_reasoning": "LOW SEVERITY: A new outcome was reported. Ensure it was properly pre-specified in an internal statistical plan.",
+        "reviews": [],
+        "consensus_status": "PENDING"
+      }
+    ],
+    "status": "WARNING"
+  },
+  "rob_assessment": {
+    "score": "Some Concerns",
+    "color": "yellow",
+    "justification": "Minor discrepancies found that remain under review or lack full consensus."
+  }
+}

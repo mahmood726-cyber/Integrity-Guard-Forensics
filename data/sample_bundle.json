@@ -1,0 +1,8 @@
+{
+  "nctId": "NCT04458623",
+  "citation": "Author et al. 2024. Journal of Medical Meta-analysis.",
+  "extractedOutcomes": [
+    {"measure": "Symptom score improvement"},
+    {"measure": "Adverse events"}
+  ]
+}
