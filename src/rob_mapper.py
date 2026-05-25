@@ -1,8 +1,8 @@
 import json
-from typing import Dict, Any, List
+from typing import Any
 
 # Domain routing map: discrepancy type → RoB 2.0 domain
-_DOMAIN_ROUTING: Dict[str, str] = {
+_DOMAIN_ROUTING: dict[str, str] = {
     "SUB_RANDOM_BASELINE": "Domain 1",
     "ANOMALOUS_PATTERN": "Domain 1",
     "STATISTICAL_IMPOSSIBILITY": "Domain 4",
@@ -14,7 +14,7 @@ _DOMAIN_ROUTING: Dict[str, str] = {
     "P_HACKING_DETECTED": "Domain 5",
 }
 
-_DOMAIN_LABELS: Dict[str, str] = {
+_DOMAIN_LABELS: dict[str, str] = {
     "Domain 1": "Bias arising from the randomization process",
     "Domain 4": "Bias in measurement of the outcome",
     "Domain 5": "Bias in selection of the reported result",
@@ -37,7 +37,7 @@ class RoBMapper:
     def __init__(self):
         pass
 
-    def _assess_single_domain(self, domain_discrepancies: List[Dict[str, Any]], disputed_count: int) -> Dict[str, Any]:
+    def _assess_single_domain(self, domain_discrepancies: list[dict[str, Any]], disputed_count: int) -> dict[str, Any]:
         """Assess a single domain given its filtered discrepancies."""
         if not domain_discrepancies and disputed_count == 0:
             return {
@@ -91,7 +91,7 @@ class RoBMapper:
             "justification": "No significant discrepancies for this domain.",
         }
 
-    def assess(self, discrepancies: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def assess(self, discrepancies: list[dict[str, Any]]) -> dict[str, Any]:
         """
         Multi-domain Risk of Bias assessment.
 
@@ -132,9 +132,9 @@ class RoBMapper:
         non_disputed = [d for d in active_discrepancies if d.get("consensus_status") != "DISPUTED"]
 
         # Route to domains
-        domain_buckets: Dict[str, List[Dict[str, Any]]] = {}
-        domain_disputed_counts: Dict[str, int] = {}
-        general_flags: List[Dict[str, Any]] = []
+        domain_buckets: dict[str, list[dict[str, Any]]] = {}
+        domain_disputed_counts: dict[str, int] = {}
+        general_flags: list[dict[str, Any]] = []
 
         for d in non_disputed:
             dtype = d.get("type", "")
@@ -154,7 +154,7 @@ class RoBMapper:
 
         # Assess each domain
         all_domains = set(list(domain_buckets.keys()) + list(domain_disputed_counts.keys()))
-        domain_results: Dict[str, Any] = {}
+        domain_results: dict[str, Any] = {}
 
         for domain in sorted(all_domains):
             items = domain_buckets.get(domain, [])
@@ -190,7 +190,7 @@ class RoBMapper:
             "domains": domain_results,
         }
 
-    def assess_domain_5(self, discrepancies: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def assess_domain_5(self, discrepancies: list[dict[str, Any]]) -> dict[str, Any]:
         """Backwards-compatible alias: returns the overall assessment from assess()."""
         result = self.assess(discrepancies)
         return result["overall"]

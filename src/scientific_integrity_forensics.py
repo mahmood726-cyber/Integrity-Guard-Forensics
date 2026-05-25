@@ -1,6 +1,6 @@
 import json
 import math
-from typing import List, Dict, Any
+from typing import Any
 
 from stats_utils import chi2_gof_test
 
@@ -14,7 +14,7 @@ class ScientificIntegrityForensics:
         pass
 
     def grim_test(self, mean: float, n: int, precision: int = 2,
-                  data_type: str = "unknown") -> Dict[str, Any]:
+                  data_type: str = "unknown") -> dict[str, Any]:
         """
         Granularity-Related Inconsistency of Means (GRIM).
         Checks if a mean is mathematically possible for a given N and precision.
@@ -69,7 +69,7 @@ class ScientificIntegrityForensics:
 
         return result
 
-    def benfords_law_test(self, numbers: List[float]) -> Dict[str, Any]:
+    def benfords_law_test(self, numbers: list[float]) -> dict[str, Any]:
         """
         Checks if the leading digits of a dataset follow Benford's Law
         using a chi-square goodness-of-fit test.

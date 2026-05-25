@@ -33,7 +33,7 @@ def run_pipeline():
 
     # P1-21: Wrap file load with specific error handling
     try:
-        with open(args.bundle, "r", encoding="utf-8") as f:
+        with open(args.bundle, encoding="utf-8") as f:
             pub_json = f.read()
             pub_data = json.loads(pub_json)
     except FileNotFoundError:

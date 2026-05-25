@@ -1,28 +1,27 @@
 import json
 import logging
-import requests
-import argparse
-import sys
 import os
+import sys
 import time
 from itertools import combinations
-from typing import List, Dict, Any
+from typing import Any
+
+import requests
 
 # Ensure src is on the path for sibling imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
+    from baseline_balance_engine import BaselineBalanceEngine
     from ct_history_fetcher import CTHistoryFetcher
     from discrepancy_engine import DiscrepancyEngine
-    from scientific_integrity_forensics import ScientificIntegrityForensics
-    from baseline_balance_engine import BaselineBalanceEngine
     from rob_mapper import RoBMapper
+    from scientific_integrity_forensics import ScientificIntegrityForensics
 except ImportError:
-    from .ct_history_fetcher import CTHistoryFetcher
-    from .discrepancy_engine import DiscrepancyEngine
-    from .scientific_integrity_forensics import ScientificIntegrityForensics
     from .baseline_balance_engine import BaselineBalanceEngine
+    from .ct_history_fetcher import CTHistoryFetcher
     from .rob_mapper import RoBMapper
+    from .scientific_integrity_forensics import ScientificIntegrityForensics
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +40,7 @@ class FraudLeadGenerator:
         self.rob_mapper = RoBMapper()
         self.baseline_fingerprints = {} # (Mean, SD) -> NCT ID
 
-    def find_recent_results(self, limit: int = 10, query: str = "") -> List[str]:
+    def find_recent_results(self, limit: int = 10, query: str = "") -> list[str]:
         """
         Target trials with results and filter for randomized in code.
         """
@@ -71,7 +70,7 @@ class FraudLeadGenerator:
             logger.warning(f"Error searching for leads: {e}")
             return []
 
-    def extract_forensic_payload(self, study_data: Dict[str, Any]) -> Dict[str, Any]:
+    def extract_forensic_payload(self, study_data: dict[str, Any]) -> dict[str, Any]:
         """
         Improved extraction for multi-arm randomized trials.
         P1-7: Supports all arm pairs via itertools.combinations.
@@ -139,11 +138,10 @@ class FraudLeadGenerator:
 
         return payload
 
-    def scan_leads(self, nct_ids: List[str]):
+    def scan_leads(self, nct_ids: list[str]):
         print(f"[*] Scanning {len(nct_ids)} trials for statistical anomaly patterns...")
         leads = []
 
-        from datetime import datetime
 
         for nct_id in nct_ids:
             print(f"   Analyzing {nct_id}...")

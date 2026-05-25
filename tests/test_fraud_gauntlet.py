@@ -26,26 +26,18 @@ References:
 """
 
 import json
-import math
 import os
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 
 from baseline_balance_engine import BaselineBalanceEngine
-from clinical_synonyms import (
-    clinical_similarity,
-    classify_endpoint,
-    detect_timeframe_change,
-)
 from discrepancy_engine import DiscrepancyEngine
 from linguistic_forensics import LinguisticForensics
 from p_curve_analyzer import PCurveAnalyzer
 from plausibility_engine import PlausibilityEngine
 from rob_mapper import RoBMapper
 from scientific_integrity_forensics import ScientificIntegrityForensics
-from stats_utils import fisher_method, welch_t_test
-
 
 # ══════════════════════════════════════════════════════════════
 # CASE 1: FUJII — The Biggest Fraud in Medical History

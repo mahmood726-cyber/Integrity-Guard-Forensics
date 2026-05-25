@@ -22,7 +22,7 @@ def main():
     args = parser.parse_args()
 
     try:
-        with open(args.bundle, "r", encoding="utf-8") as f:
+        with open(args.bundle, encoding="utf-8") as f:
             bundle_data = json.load(f)
     except Exception as e:
         print(f"Error loading bundle: {e}")

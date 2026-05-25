@@ -1,14 +1,12 @@
 import json
 import logging
-from typing import List, Dict, Any, Optional
 from difflib import SequenceMatcher
+from typing import Any
 
 from clinical_synonyms import (
+    classify_endpoint,
     clinical_similarity,
     detect_timeframe_change,
-    classify_endpoint,
-    HARD_ENDPOINTS,
-    SURROGATE_ENDPOINTS,
 )
 
 logger = logging.getLogger(__name__)
@@ -30,7 +28,7 @@ class DiscrepancyEngine:
         """
         return clinical_similarity(a, b)
 
-    def analyze_impact(self, discrepancy: Dict[str, Any]):
+    def analyze_impact(self, discrepancy: dict[str, Any]):
         """
         Adds semantic clinical reasoning to the discrepancy.
         Detects 'Hard Endpoints' vs 'Surrogate Endpoints' switches
@@ -58,7 +56,7 @@ class DiscrepancyEngine:
         if reasoning:
             discrepancy["clinical_reasoning"] = reasoning
 
-    def compare_outcomes(self, protocol_outcomes: List[Dict[str, Any]], publication_outcomes: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def compare_outcomes(self, protocol_outcomes: list[dict[str, Any]], publication_outcomes: list[dict[str, Any]]) -> dict[str, Any]:
         """
         Compares protocol outcomes vs publication outcomes.
         Returns a list of potential discrepancies with clinical reasoning.
@@ -71,7 +69,7 @@ class DiscrepancyEngine:
         # Clinical-aware matching by description/measure
         matched_indices = set()
         # Track which protocol outcome matched each publication outcome
-        match_pairs: List[tuple] = []  # (pub_measure, prot_idx, prot_measure, similarity)
+        match_pairs: list[tuple] = []  # (pub_measure, prot_idx, prot_measure, similarity)
 
         for pub_idx, pub_outcome in enumerate(publication_outcomes):
             pub_measure = pub_outcome.get("measure", "")
@@ -135,17 +133,17 @@ class DiscrepancyEngine:
 
 if __name__ == "__main__":
     engine = DiscrepancyEngine()
-    
+
     # Mock data
     protocol = [
         {"measure": "Overall Survival at 12 months"},
         {"measure": "Progression-free survival"}
     ]
-    
+
     publication = [
         {"measure": "Overall Survival at 12 months"},
         {"measure": "Quality of Life Score"} # Added
     ]
-    
+
     results = engine.compare_outcomes(protocol, publication)
     print(json.dumps(results, indent=2))

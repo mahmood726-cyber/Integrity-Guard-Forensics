@@ -1,6 +1,7 @@
 import argparse
 import json
 from datetime import datetime
+
 from discrepancy_engine import DiscrepancyEngine
 from utils import update_consensus, validate_report_schema
 
@@ -9,7 +10,7 @@ class AIReviewer:
     def __init__(self, report_path: str):
         self.report_path = report_path
         # P2-14: Add encoding='utf-8' to open()
-        with open(self.report_path, 'r', encoding='utf-8') as f:
+        with open(self.report_path, encoding='utf-8') as f:
             self.report = json.load(f)
         validate_report_schema(self.report)
         self.engine = DiscrepancyEngine()

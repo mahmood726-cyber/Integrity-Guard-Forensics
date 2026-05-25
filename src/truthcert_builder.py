@@ -6,7 +6,7 @@ import os
 import secrets
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 from utils import TOOL_DISCLAIMER
 
@@ -85,7 +85,7 @@ class TruthCertBuilder:
             "type": "JSON_API" if "clinicaltrials.gov" in locator else "TEXT_EXTRACT"
         }
 
-    def certify_discrepancy(self, discrepancy: Dict[str, Any]):
+    def certify_discrepancy(self, discrepancy: dict[str, Any]):
         """Turns a discrepancy into a certified claim."""
         claim = {
             "claim_id": f"CLAIM-{len(self.claims) + 1}",
@@ -99,7 +99,7 @@ class TruthCertBuilder:
         }
         self.claims.append(claim)
 
-    def build_bundle(self, overall_status: str, key: Optional[bytes] = None) -> Dict[str, Any]:
+    def build_bundle(self, overall_status: str, key: bytes | None = None) -> dict[str, Any]:
         """
         Produce the final TruthCert Bundle signed with HMAC-SHA256.
 
@@ -127,14 +127,14 @@ class TruthCertBuilder:
         return bundle
 
 
-def _compute_integrity_hash(bundle: Dict[str, Any], key: bytes) -> str:
+def _compute_integrity_hash(bundle: dict[str, Any], key: bytes) -> str:
     """Compute HMAC-SHA256 over the canonical JSON body (excluding the hash)."""
     body = {k: v for k, v in bundle.items() if k != "integrity_hash"}
     canonical = json.dumps(body, sort_keys=True).encode("utf-8")
     return hmac.new(key, canonical, hashlib.sha256).hexdigest()
 
 
-def verify_bundle(bundle: Dict[str, Any], key: bytes) -> bool:
+def verify_bundle(bundle: dict[str, Any], key: bytes) -> bool:
     """
     Verify the HMAC-SHA256 integrity hash on a bundle.
 

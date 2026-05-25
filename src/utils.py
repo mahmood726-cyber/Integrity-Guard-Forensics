@@ -9,7 +9,7 @@ Centralizes functions that were duplicated across modules:
 
 import os
 import re
-from typing import Dict, Any, List
+from typing import Any
 
 
 def ensure_parent_dir(path: str):
@@ -19,7 +19,7 @@ def ensure_parent_dir(path: str):
         os.makedirs(parent, exist_ok=True)
 
 
-def update_consensus(discrepancy: Dict[str, Any]):
+def update_consensus(discrepancy: dict[str, Any]):
     """Robust consensus logic for Human-AI collaboration.
 
     States: PENDING → IN_PROGRESS → CONFIRMED / FALSE_POSITIVE / DISPUTED

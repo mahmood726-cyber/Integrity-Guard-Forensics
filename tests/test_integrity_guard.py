@@ -6,10 +6,10 @@ historical fraud patterns (Fujii, Boldt, Sato).
 """
 
 import json
-import math
 import os
 import random
 import sys
+
 import pytest
 
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
@@ -17,8 +17,8 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "
 from ai_reviewer import AIReviewer
 from baseline_balance_engine import BaselineBalanceEngine
 from clinical_synonyms import (
-    clinical_similarity,
     classify_endpoint,
+    clinical_similarity,
     detect_timeframe_change,
 )
 from discrepancy_engine import DiscrepancyEngine
@@ -31,13 +31,10 @@ from review_tool import ReviewTool
 from rob_mapper import RoBMapper
 from scientific_integrity_forensics import ScientificIntegrityForensics
 from stats_utils import (
-    betainc,
     benjamini_hochberg,
-    binom_pmf,
     binom_test_greater,
     chi2_cdf,
     chi2_gof_test,
-    chi2_sf,
     fisher_method,
     normal_cdf,
     t_cdf,
@@ -51,13 +48,11 @@ from truthcert_builder import (
     verify_bundle,
 )
 from utils import (
-    TOOL_DISCLAIMER,
     ensure_parent_dir,
     update_consensus,
     validate_nct_id,
     validate_report_schema,
 )
-
 
 # ══════════════════════════════════════════════════════════════
 # 1. STATS_UTILS — validated against scipy / tables

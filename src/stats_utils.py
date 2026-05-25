@@ -19,8 +19,6 @@ References:
 """
 
 import math
-from typing import List, Tuple, Optional
-
 
 # ──────────────────────────────────────────────────────────────
 # 1. BUILDING BLOCKS
@@ -87,10 +85,9 @@ def betainc(a: float, b: float, x: float) -> float:
         log_prefix = (math.lgamma(a + b) - math.lgamma(a) - math.lgamma(b)
                       + a * math.log(x) + b * math.log(1.0 - x))
         return math.exp(log_prefix) * _betacf(a, b, x) / a
-    else:
-        log_prefix = (math.lgamma(a + b) - math.lgamma(b) - math.lgamma(a)
-                      + b * math.log(1.0 - x) + a * math.log(x))
-        return 1.0 - math.exp(log_prefix) * _betacf(b, a, 1.0 - x) / b
+    log_prefix = (math.lgamma(a + b) - math.lgamma(b) - math.lgamma(a)
+                  + b * math.log(1.0 - x) + a * math.log(x))
+    return 1.0 - math.exp(log_prefix) * _betacf(b, a, 1.0 - x) / b
 
 
 def _gammainc_series(a: float, x: float,
@@ -150,8 +147,7 @@ def gammainc_lower(a: float, x: float) -> float:
         raise ValueError(f"a must be positive, got {a}")
     if x < a + 1.0:
         return _gammainc_series(a, x)
-    else:
-        return 1.0 - _gammainc_cf(a, x)
+    return 1.0 - _gammainc_cf(a, x)
 
 
 # ──────────────────────────────────────────────────────────────
@@ -187,8 +183,7 @@ def t_cdf(t_val: float, df: float) -> float:
     ib = betainc(df / 2.0, 0.5, x)
     if t_val > 0:
         return 1.0 - 0.5 * ib
-    else:
-        return 0.5 * ib
+    return 0.5 * ib
 
 
 def t_sf(t_val: float, df: float) -> float:
@@ -219,7 +214,7 @@ def chi2_sf(x: float, df: int) -> float:
 # ──────────────────────────────────────────────────────────────
 
 def welch_t_test(m1: float, sd1: float, n1: int,
-                 m2: float, sd2: float, n2: int) -> Tuple[float, float, float]:
+                 m2: float, sd2: float, n2: int) -> tuple[float, float, float]:
     """Welch's unequal-variance t-test.
 
     Returns (t_statistic, degrees_of_freedom, two_sided_p_value).
@@ -239,9 +234,8 @@ def welch_t_test(m1: float, sd1: float, n1: int,
     if se == 0:
         if m1 == m2:
             return (0.0, float(n1 + n2 - 2), 1.0)
-        else:
-            # Impossible: constant variable with different means
-            return (float('inf'), float(n1 + n2 - 2), 1e-15)
+        # Impossible: constant variable with different means
+        return (float('inf'), float(n1 + n2 - 2), 1e-15)
 
     t_stat = (m1 - m2) / se
 
@@ -255,8 +249,8 @@ def welch_t_test(m1: float, sd1: float, n1: int,
     return (t_stat, df, max(p, 1e-15))
 
 
-def chi2_gof_test(observed: List[float],
-                  expected: List[float]) -> Tuple[float, int, float]:
+def chi2_gof_test(observed: list[float],
+                  expected: list[float]) -> tuple[float, int, float]:
     """Chi-square goodness-of-fit test.
 
     Returns (chi_square_statistic, degrees_of_freedom, p_value).
@@ -301,8 +295,8 @@ def binom_test_greater(k: int, n: int, p: float = 0.5) -> float:
     return sum(binom_pmf(i, n, p) for i in range(k, n + 1))
 
 
-def fisher_method(p_values: List[float],
-                  direction: str = "standard") -> Tuple[float, int, float]:
+def fisher_method(p_values: list[float],
+                  direction: str = "standard") -> tuple[float, int, float]:
     """Fisher's method for combining p-values.
 
     direction="standard": -2 * sum(ln(p))  — tests if p-values are too small
@@ -326,8 +320,8 @@ def fisher_method(p_values: List[float],
     return (chi_sq, df, combined_p)
 
 
-def benjamini_hochberg(p_values: List[float],
-                       alpha: float = 0.05) -> List[Tuple[int, float, bool]]:
+def benjamini_hochberg(p_values: list[float],
+                       alpha: float = 0.05) -> list[tuple[int, float, bool]]:
     """Benjamini-Hochberg FDR correction for multiple testing.
 
     Returns list of (original_index, adjusted_p_value, is_significant)

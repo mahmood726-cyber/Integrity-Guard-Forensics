@@ -1,8 +1,7 @@
-import json
+import math
 import random
 import statistics
-import math
-from typing import List, Dict, Any, Optional
+from typing import Any
 
 from stats_utils import t_sf
 
@@ -18,7 +17,7 @@ class PlausibilityEngine:
 
     Deterministic seeding ensures reproducible forensic results.
     """
-    def __init__(self, simulations: int = 10000, seed: Optional[int] = 42):
+    def __init__(self, simulations: int = 10000, seed: int | None = 42):
         self.simulations = simulations
         self.rng = random.Random(seed)
 
@@ -54,7 +53,7 @@ class PlausibilityEngine:
         p = 2.0 * t_sf(t, df)
         return p
 
-    def run_simulation(self, reported_m1, sd1, n1, reported_m2, sd2, n2, reported_p) -> Dict[str, Any]:
+    def run_simulation(self, reported_m1, sd1, n1, reported_m2, sd2, n2, reported_p) -> dict[str, Any]:
         """
         Runs simulations to see where the reported p-value falls.
         """

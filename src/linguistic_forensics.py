@@ -1,6 +1,7 @@
 import json
 import re
-from typing import Dict, Any
+from typing import Any
+
 
 class LinguisticForensics:
     """
@@ -10,18 +11,18 @@ class LinguisticForensics:
     def __init__(self):
         # Words often over-used in fraudulent or hyped research
         self.PROMOTIONAL_MARKERS = [
-            "extraordinary", "groundbreaking", "unprecedented", "unique", 
+            "extraordinary", "groundbreaking", "unprecedented", "unique",
             "transformative", "landmark", "miraculous", "exceptional",
             "novel", "robustly", "dramatically", "revolutionary"
         ]
-        
+
         # Uncertainty words often missing from over-confident fraudulent papers
         self.UNCERTAINTY_WORDS = [
-            "perhaps", "suggest", "potential", "limitation", "caveat", 
+            "perhaps", "suggest", "potential", "limitation", "caveat",
             "maybe", "could", "likely", "possible", "uncertain", "notably"
         ]
 
-    def analyze_text(self, text: str) -> Dict[str, Any]:
+    def analyze_text(self, text: str) -> dict[str, Any]:
         """
         Analyzes the text for markers of over-promotion vs uncertainty.
         """
@@ -34,14 +35,14 @@ class LinguisticForensics:
 
         promo_count = sum(1 for w in words if w in self.PROMOTIONAL_MARKERS)
         uncertainty_count = sum(1 for w in words if w in self.UNCERTAINTY_WORDS)
-        
+
         # Calculate scores
         # We want a healthy balance. Over-confident papers have high promo, low uncertainty.
         promo_density = promo_count / word_count * 100 if word_count > 0 else 0
         uncertain_density = uncertainty_count / word_count * 100 if word_count > 0 else 0
-        
+
         is_suspicious = promo_density > 2.0 and uncertain_density < 0.5
-        
+
         return {
             "status": "SUSPICIOUS (OVER-CONFIDENCE)" if is_suspicious else "TYPICAL (SCIENTIFIC_TONE)",
             "promotional_density": round(promo_density, 2),

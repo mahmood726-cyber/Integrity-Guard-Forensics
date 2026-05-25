@@ -1,10 +1,10 @@
-import json
-import requests
 import argparse
-import sys
+import json
 import os
+import sys
 import time
-from typing import List, Dict, Any
+
+import requests
 
 # Ensure we use UTF-8 for output if possible to avoid charmap errors
 if sys.stdout.encoding != 'utf-8':
@@ -33,7 +33,7 @@ class MassScanner:
         """
         Pages through the API. If max_trials is None, it scans until the end.
         """
-        print(f"[*] Initializing Mass Scan of ClinicalTrials.gov...")
+        print("[*] Initializing Mass Scan of ClinicalTrials.gov...")
         print(f"[*] Saving active leads to: {self.output_file}")
 
         # Target: Trials with results.
@@ -108,7 +108,7 @@ class MassScanner:
                 time.sleep(0.5)
 
         print("\n" + "="*50)
-        print(f"[*] MASS SCAN COMPLETE")
+        print("[*] MASS SCAN COMPLETE")
         print(f"    Total Trials Evaluated: {trials_processed}")
         print(f"    Total Anomaly Leads Saved: {leads_found}")
         print(f"    Output File: {self.output_file}")

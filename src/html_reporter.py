@@ -1,6 +1,6 @@
-import json
 import argparse
 import html
+import json
 
 from utils import TOOL_DISCLAIMER, validate_report_schema
 
@@ -35,7 +35,7 @@ class HTMLReporter:
 
     def _load_report(self) -> dict:
         try:
-            with open(self.report_path, 'r', encoding='utf-8') as f:
+            with open(self.report_path, encoding='utf-8') as f:
                 data = json.load(f)
             validate_report_schema(data)
             return data

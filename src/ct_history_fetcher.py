@@ -1,7 +1,8 @@
-import requests
 import json
 import logging
-from typing import List, Dict, Any, Optional
+from typing import Any
+
+import requests
 
 from utils import validate_nct_id
 
@@ -14,7 +15,7 @@ class CTHistoryFetcher:
     def __init__(self):
         self.session = requests.Session()
 
-    def get_history_list(self, nct_id: str) -> List[Dict[str, Any]]:
+    def get_history_list(self, nct_id: str) -> list[dict[str, Any]]:
         """
         Fetches the history of versions for a given NCT ID.
         """
@@ -36,7 +37,7 @@ class CTHistoryFetcher:
             logger.error(f"Error fetching history list for {nct_id}: {e}")
             return []
 
-    def get_study_version(self, nct_id: str, version_number: Optional[int] = None) -> Dict[str, Any]:
+    def get_study_version(self, nct_id: str, version_number: int | None = None) -> dict[str, Any]:
         """
         Fetches a specific historical version of a study.
         If version_number is None, fetches the latest version.
@@ -60,7 +61,7 @@ class CTHistoryFetcher:
             logger.error(f"Error fetching study version {version_number} for {nct_id}: {e}")
             return {}
 
-    def get_primary_outcomes(self, study_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def get_primary_outcomes(self, study_data: dict[str, Any]) -> list[dict[str, Any]]:
         """
         Extracts primary outcomes from the Protocol section.
         """
@@ -72,7 +73,7 @@ class CTHistoryFetcher:
             logger.error(f"Error extracting protocol primary outcomes: {e}")
             return []
 
-    def get_results_outcomes(self, study_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def get_results_outcomes(self, study_data: dict[str, Any]) -> list[dict[str, Any]]:
         """
         Extracts outcomes from the Results section (if they exist).
         """

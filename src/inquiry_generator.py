@@ -1,6 +1,5 @@
-import json
 from datetime import datetime
-from typing import Dict, Any, List
+from typing import Any
 
 from utils import TOOL_DISCLAIMER
 
@@ -9,7 +8,7 @@ class ScientificInquiryGenerator:
     """
     Drafts a formal 'Letter to the Editor' based on detected reporting bias.
     """
-    def __init__(self, report_data: Dict[str, Any]):
+    def __init__(self, report_data: dict[str, Any]):
         self.report = report_data
         self.nct_id = self.report.get("nctId", "NCTXXXXXXXX")
         self.citation = self.report.get("citation", "Unknown Journal Article")

@@ -12,15 +12,13 @@ Approach:
 """
 
 import re
-from typing import Dict, List, Set, Tuple, Optional
 from difflib import SequenceMatcher
-
 
 # ──────────────────────────────────────────────────────────────
 # 1. ABBREVIATION DICTIONARY
 # ──────────────────────────────────────────────────────────────
 
-ABBREVIATIONS: Dict[str, str] = {
+ABBREVIATIONS: dict[str, str] = {
     # Cardiology
     "mace": "major adverse cardiovascular events",
     "cv": "cardiovascular",
@@ -96,7 +94,7 @@ ABBREVIATIONS: Dict[str, str] = {
 # 2. SYNONYM GROUPS (words that mean the same clinical concept)
 # ──────────────────────────────────────────────────────────────
 
-SYNONYM_GROUPS: List[Set[str]] = [
+SYNONYM_GROUPS: list[set[str]] = [
     {"mortality", "death", "died", "dying", "fatal", "fatality"},
     {"survival", "alive", "living"},
     {"myocardial infarction", "heart attack", "mi"},
@@ -115,7 +113,7 @@ SYNONYM_GROUPS: List[Set[str]] = [
 ]
 
 # Build a lookup: word → canonical form (first in group)
-_SYNONYM_MAP: Dict[str, str] = {}
+_SYNONYM_MAP: dict[str, str] = {}
 for group in SYNONYM_GROUPS:
     canonical = sorted(group)[0]  # alphabetically first = canonical
     for word in group:
@@ -126,7 +124,7 @@ for group in SYNONYM_GROUPS:
 # 3. HARD vs SURROGATE ENDPOINT CLASSIFICATION
 # ──────────────────────────────────────────────────────────────
 
-HARD_ENDPOINTS: List[str] = [
+HARD_ENDPOINTS: list[str] = [
     "survival", "mortality", "death", "overall survival",
     "stroke", "myocardial infarction", "heart attack",
     "heart failure hospitalization", "hospitalization",
@@ -141,7 +139,7 @@ HARD_ENDPOINTS: List[str] = [
     "quality of life", "functional capacity",
 ]
 
-SURROGATE_ENDPOINTS: List[str] = [
+SURROGATE_ENDPOINTS: list[str] = [
     "biomarker", "blood pressure", "systolic blood pressure",
     "diastolic blood pressure", "cholesterol", "ldl", "hdl",
     "imaging", "symptom score", "laboratory",
@@ -195,7 +193,7 @@ def _canonicalize_synonyms(text: str) -> str:
     return result
 
 
-def _extract_timeframe(text: str) -> Optional[str]:
+def _extract_timeframe(text: str) -> str | None:
     """Extract timeframe from outcome description (e.g., '12 months', '1 year')."""
     patterns = [
         r'(\d+)\s*(?:month|mo)s?',
@@ -257,7 +255,7 @@ def clinical_similarity(text_a: str, text_b: str) -> float:
     return max(sim_direct, sim_expanded, sim_canonical, sim_jaccard)
 
 
-def detect_timeframe_change(text_a: str, text_b: str) -> Optional[str]:
+def detect_timeframe_change(text_a: str, text_b: str) -> str | None:
     """Detect if two matched outcomes have different timeframes.
 
     Returns a warning string if timeframes differ, None if they match or

@@ -1,8 +1,7 @@
 import json
-import math
-from typing import List, Dict, Any
+from typing import Any
 
-from stats_utils import welch_t_test, fisher_method
+from stats_utils import fisher_method, welch_t_test
 
 
 class BaselineBalanceEngine:
@@ -35,7 +34,7 @@ class BaselineBalanceEngine:
         t_stat, df, p = welch_t_test(mean1, sd1, n1, mean2, sd2, n2)
         return p
 
-    def analyze_baseline_set(self, baseline_comparisons: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def analyze_baseline_set(self, baseline_comparisons: list[dict[str, Any]]) -> dict[str, Any]:
         """
         Analyzes baseline p-values and Standard Deviation (SD) homogeneity.
 

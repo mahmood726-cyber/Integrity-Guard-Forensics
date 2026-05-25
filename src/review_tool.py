@@ -1,7 +1,7 @@
-import json
 import argparse
+import json
 from datetime import datetime
-from typing import Dict, Any, List
+from typing import Any
 
 from utils import update_consensus, validate_report_schema
 
@@ -11,8 +11,8 @@ class ReviewTool:
         self.report_path = report_path
         self.report = self._load_report()
 
-    def _load_report(self) -> Dict[str, Any]:
-        with open(self.report_path, 'r', encoding='utf-8') as f:
+    def _load_report(self) -> dict[str, Any]:
+        with open(self.report_path, encoding='utf-8') as f:
             data = json.load(f)
         validate_report_schema(data)
         return data

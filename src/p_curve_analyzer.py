@@ -1,6 +1,5 @@
 import json
-import math
-from typing import List, Dict, Any
+from typing import Any
 
 from stats_utils import binom_test_greater
 
@@ -21,8 +20,8 @@ class PCurveAnalyzer:
     def __init__(self):
         pass
 
-    def analyze_p_values(self, p_values: List[float],
-                         validated_independent: bool = False) -> Dict[str, Any]:
+    def analyze_p_values(self, p_values: list[float],
+                         validated_independent: bool = False) -> dict[str, Any]:
         """
         Performs a p-curve analysis on a set of reported results.
 
