@@ -7,6 +7,7 @@ import secrets
 from datetime import datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 from utils import TOOL_DISCLAIMER
 
@@ -79,10 +80,12 @@ class TruthCertBuilder:
     def add_evidence_source(self, label: str, content: str, locator: str):
         """Adds a source and calculates its hash for verification."""
         content_hash = hashlib.sha256(content.encode('utf-8')).hexdigest()
+        host = (urlparse(locator).hostname or "").lower()
+        is_ctgov_api = host == "clinicaltrials.gov" or host.endswith(".clinicaltrials.gov")
         self.evidence_sources[label] = {
             "locator": locator,
             "hash": content_hash,
-            "type": "JSON_API" if "clinicaltrials.gov" in locator else "TEXT_EXTRACT"
+            "type": "JSON_API" if is_ctgov_api else "TEXT_EXTRACT"
         }
 
     def certify_discrepancy(self, discrepancy: dict[str, Any]):
