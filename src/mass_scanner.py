@@ -6,8 +6,9 @@ import time
 
 import requests
 
-# Ensure we use UTF-8 for output if possible to avoid charmap errors
-if sys.stdout.encoding != 'utf-8':
+# Ensure we use UTF-8 for output if possible to avoid charmap errors.
+# Skipped under pytest so we don't corrupt pytest's stdout capture.
+if "pytest" not in sys.modules and sys.stdout.encoding != 'utf-8':
     import io
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
